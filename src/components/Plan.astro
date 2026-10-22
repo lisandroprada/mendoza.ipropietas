@@ -1,5 +1,5 @@
 ---
-import { route, zones, house, gallery, poolArea, lot, cameras, HOUSE_CENTER } from '../data';
+import { route, zones, house, gallery, poolArea, carport, lot, cameras, HOUSE_CENTER } from '../data';
 
 const routeD = 'M' + route.map(([x, y]) => `${x} ${y}`).join(' L');
 // Six arches along the yard side of the gallery.
@@ -9,6 +9,8 @@ const arches = Array.from({ length: 6 }, (_, i) => {
   return `M${ax} ${y} a14 14 0 0 0 0 28`;
 }).join(' ');
 const hy = house.y + house.h;
+const kx = house.x + 38; // kitchen strip edge
+const bx = kx + 30; // bathroom edge
 const data = JSON.stringify({ route, cameras, house: HOUSE_CENTER });
 ---
 
@@ -40,8 +42,12 @@ const data = JSON.stringify({ route, cameras, house: HOUSE_CENTER });
 
   <!-- Lot: the corner cut at the lower right is from the sketch -->
   <path class="lot-fill" d={`${lot}H100Z`} />
-  <path class="lot-line" d={`M190 590H100V50H871V454L769 590H240`} />
-  <path class="gate" d="M190 590L222 556" />
+  <path class="lot-line" d={`M240 590H100V50H871V454L769 590H290`} />
+  <path class="gate" d="M240 590L272 556" />
+
+  <!-- Carport: semi-covered, one vehicle, left of the house -->
+  <rect class="carport" x={carport.x} y={carport.y} width={carport.w} height={carport.h} />
+  <rect class="house-hatch" x={carport.x} y={carport.y} width={carport.w} height={carport.h / 2} />
 
   <!-- Pool area, behind the house -->
   <rect class="deck" x={poolArea.x} y={poolArea.y} width={poolArea.w} height={poolArea.h} />
@@ -51,7 +57,7 @@ const data = JSON.stringify({ route, cameras, house: HOUSE_CENTER });
   <!-- House: kitchen strip at the left, rooms in the middle, gallery along the yard side -->
   <rect class="house-fill" x={house.x} y={house.y} width={house.w} height={house.h} />
   <rect class="house-hatch" x={house.x} y={house.y} width={house.w} height={house.h} />
-  <path class="wall" d={`M170 ${house.y}V${hy}M${gallery.x} ${house.y}V${hy}M170 325H${gallery.x}M170 395H${gallery.x}M200 325V395`} />
+  <path class="wall" d={`M${kx} ${house.y}V${hy}M${gallery.x} ${house.y}V${hy}M${kx} 325H${gallery.x}M${kx} 395H${gallery.x}M${bx} 325V395`} />
   <rect class="house-line" x={house.x} y={house.y} width={house.w} height={house.h} />
   <rect class="gallery" x={gallery.x} y={house.y} width={gallery.w} height={house.h} />
   <path class="arches" d={arches} />
@@ -74,8 +80,9 @@ const data = JSON.stringify({ route, cameras, house: HOUSE_CENTER });
   </g>
 
   <!-- Rooms from the sketch that are not tour stops; they appear only when the camera is close -->
-  <g class="px room-lbl" data-at="213,289"><text class="lbl lbl-dim" text-anchor="middle">DORMITORIO</text></g>
-  <g class="px room-lbl wide-only" data-at="185,360"><text class="lbl lbl-dim" text-anchor="middle">BAÑO</text></g>
+  <g class="px room-lbl" data-at={`${carport.x + carport.w / 2},${carport.y + carport.h + 20}`}><text class="lbl lbl-dim" text-anchor="middle">COCHERA</text></g>
+  <g class="px room-lbl" data-at="263,289"><text class="lbl lbl-dim" text-anchor="middle">DORMITORIO</text></g>
+  <g class="px room-lbl wide-only" data-at="235,383"><text class="lbl lbl-dim" text-anchor="middle">BAÑO</text></g>
 
   {zones.map((z, i) => (
     <g class="px zone" data-zone={i + 1} data-at={route[z.wp].join(',')}>
@@ -122,7 +129,7 @@ const data = JSON.stringify({ route, cameras, house: HOUSE_CENTER });
   let aspect = 1.5;
   type State = { cx: number; cy: number; w: number; d: number };
   const camFor = (i: number): State => {
-    if (i === 0) return { cx: 490, cy: 280, w: Math.max(1000, 700 * aspect), d: 0 };
+    if (i === 0) return { cx: 500, cy: 280, w: Math.max(1000, 700 * aspect), d: 0 };
     const c = plan.cameras[i - 1];
     return { ...c, d: cum[zoneWp[i - 1]] };
   };

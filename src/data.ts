@@ -24,24 +24,26 @@ export const BUILT_M2 = 151.94;
 // The street runs along the bottom; the house sits at the left of the lot, pool behind it.
 // Waypoints of the visit route, street to pool. Indices 3..10 are the eight zones, in tour order.
 export const route: [number, number][] = [
-  [215, 605],
-  [215, 530],
-  [250, 505],
-  [283, 440],
-  [213, 466],
-  [213, 440],
-  [213, 415],
-  [232, 358],
-  [151, 360],
-  [283, 300],
-  [211, 190],
+  [265, 605],
+  [265, 530],
+  [300, 505],
+  [333, 440],
+  [263, 466],
+  [263, 440],
+  [263, 415],
+  [282, 358],
+  [201, 360],
+  [333, 300],
+  [261, 190],
 ];
 
 export const lot = 'M100 590V50H871V454L769 590';
-export const house = { x: 132, y: 253, w: 177, h: 217 };
-export const gallery = { x: 257, w: 52 };
-export const poolArea = { x: 129, y: 141, w: 164, h: 100 };
-export const HOUSE_CENTER: [number, number] = [220, 361];
+export const house = { x: 182, y: 253, w: 177, h: 217 };
+export const gallery = { x: 307, w: 52 };
+export const poolArea = { x: 179, y: 141, w: 164, h: 100 };
+// Semi-covered carport for one vehicle, left of the house.
+export const carport = { x: 108, y: 388, w: 62, h: 82 };
+export const HOUSE_CENTER: [number, number] = [270, 361];
 
 export type Zone = {
   id: string;
@@ -136,7 +138,7 @@ export const zones: Zone[] = [
 // Camera per step. Step 0 (the whole lot) is computed from the stage aspect.
 export const cameras = zones.map((z) => {
   const [x, y] = route[z.wp];
-  if (z.id === 'pileta') return { cx: 211, cy: 200, w: 290 };
+  if (z.id === 'pileta') return { cx: 261, cy: 200, w: 290 };
   return {
     cx: x * 0.4 + HOUSE_CENTER[0] * 0.6 + 24,
     cy: y * 0.4 + HOUSE_CENTER[1] * 0.6 + 6,

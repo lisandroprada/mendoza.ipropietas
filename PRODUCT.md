@@ -54,12 +54,12 @@ Real photography lives in a local originals folder (not versioned; its name cont
 - Originals are interiors and exteriors of a rustic brick-and-wood house; web copies with neutral names are in `src/assets/fotos/`.
 - `Gemini_Generated_Image_gvihw4gvihw4gvih` (PNG and "Large" JPEG): exterior with a fenced pool, wooden deck and brick portico. **The user confirms it is real and may be used.** Despite the filename it is not an invention.
 
-Agent: Lisandro Emanuel Prada Toledo, Matrícula N° 117 (COCICH), NETRA SRL / Propietas Inmobiliaria. Show the license number only if the user wants it on the page.
+Agent: Lisandro Emanuel Prada Toledo, Matrícula N° 117 (COCICH), NETRA SRL / Propietas Inmobiliaria. The license number is published on the page (user-confirmed).
 
 Listing: https://www.ipropietas.com.ar/listing_details_05/84b72665-b467-490d-8904-9528f58005d6 (fetched 2026-10-22). It states:
 - **Mendoza 1042**, barrio Rawson, Rawson, Chubut. Casa, **en venta, USD 250.000**.
 - Dwelling use, north-facing in the description (the feature list shows orientation as "-"), 40 years old, "estado general muy bueno".
-- 2 dormitorios, 1 baño, garage for 1 vehicle, parrilla, piscina.
+- 2 dormitorios, 1 baño, semi-covered garage for 1 vehicle, left of the house, parrilla, piscina.
 - Agency address: Gregorio Mayo 106, Rawson, Chubut; info@ipropietas.com.ar.
 - Cover and gallery photos are hosted at `api.rentia.com.ar/uploads/PROPERTY/84b72665-…/images/slider/` (7+ images); the local photos may be the same set or a different one.
 

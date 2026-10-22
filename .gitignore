@@ -5,3 +5,5 @@ dist
 P*Mendoza/
 .impeccable/review/
 .env
+.vercel
+.env*.local
