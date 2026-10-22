@@ -1,16 +1,14 @@
 ---
-import { route, zones, house, cameras, HOUSE_CENTER } from '../data';
+import { route, zones, house, gallery, poolArea, lot, cameras, HOUSE_CENTER } from '../data';
 
 const routeD = 'M' + route.map(([x, y]) => `${x} ${y}`).join(' L');
-const trees = [
-  [150, 150, 22], [235, 262, 28], [310, 120, 20], [405, 205, 26], [700, 225, 18],
-  [820, 150, 26], [905, 300, 22], [780, 520, 24], [130, 385, 24], [875, 465, 20],
-];
-// Five arches along the front of the house (the gallery).
-const arches = Array.from({ length: 5 }, (_, i) => {
-  const x = house.x + 12 + i * 34;
-  return `M${x} ${house.y + house.h + 28} a14 14 0 0 1 28 0`;
+// Six arches along the yard side of the gallery.
+const ax = gallery.x + gallery.w;
+const arches = Array.from({ length: 6 }, (_, i) => {
+  const y = house.y + 8 + i * 35;
+  return `M${ax} ${y} a14 14 0 0 0 0 28`;
 }).join(' ');
+const hy = house.y + house.h;
 const data = JSON.stringify({ route, cameras, house: HOUSE_CENTER });
 ---
 
@@ -19,7 +17,7 @@ const data = JSON.stringify({ route, cameras, house: HOUSE_CENTER });
   viewBox="0 0 1000 640"
   preserveAspectRatio="xMidYMid meet"
   role="img"
-  aria-label="Esquema ilustrativo del terreno de Mendoza 1042 con el recorrido por la casa: portón, galería, recibidor, living, comedor, cocina, sala vidriada y pileta."
+  aria-label="Esquema ilustrativo del terreno de Mendoza 1042 con el recorrido por la casa: galería, recibidor, living, comedor, dormitorios, cocina, sala vidriada y pileta."
   data-plan={data}
 >
   <defs>
@@ -40,49 +38,44 @@ const data = JSON.stringify({ route, cameras, house: HOUSE_CENTER });
   <rect class="street" x="-3000" y="590" width="7000" height="3000" />
   <path class="centerline" d="M-3000 645H4000" />
 
-  <!-- Lot -->
-  <rect class="lot-fill" x="60" y="50" width="880" height="540" />
-  <path class="lot-line" d="M230 590H60V50H940V590H290" />
-  <path class="gate" d="M230 590L262 556" />
-  <g class="trees">
-    {trees.map(([x, y, r]) => (
-      <>
-        <circle cx={x} cy={y} r={r} />
-        <circle cx={x} cy={y} r="2" class="tree-dot" />
-      </>
-    ))}
-  </g>
-  <rect class="carport" x="112" y="498" width="100" height="78" />
+  <!-- Lot: the corner cut at the lower right is from the sketch -->
+  <path class="lot-fill" d={`${lot}H100Z`} />
+  <path class="lot-line" d={`M190 590H100V50H871V454L769 590H240`} />
+  <path class="gate" d="M190 590L222 556" />
 
-  <!-- House, gallery, deck and pool -->
+  <!-- Pool area, behind the house -->
+  <rect class="deck" x={poolArea.x} y={poolArea.y} width={poolArea.w} height={poolArea.h} />
+  <rect class="deck-boards" x={poolArea.x} y={poolArea.y} width={poolArea.w} height={poolArea.h} />
+  <rect class="pool" x={poolArea.x + 22} y={poolArea.y + 22} width={poolArea.w - 44} height={poolArea.h - 44} rx="3" />
+
+  <!-- House: kitchen strip at the left, rooms in the middle, gallery along the yard side -->
   <rect class="house-fill" x={house.x} y={house.y} width={house.w} height={house.h} />
   <rect class="house-hatch" x={house.x} y={house.y} width={house.w} height={house.h} />
+  <path class="wall" d={`M170 ${house.y}V${hy}M${gallery.x} ${house.y}V${hy}M170 325H${gallery.x}M170 395H${gallery.x}M200 325V395`} />
   <rect class="house-line" x={house.x} y={house.y} width={house.w} height={house.h} />
-  <rect class="gallery" x={house.x} y={house.y + house.h} width={house.w} height="28" />
+  <rect class="gallery" x={gallery.x} y={house.y} width={gallery.w} height={house.h} />
   <path class="arches" d={arches} />
-  <rect class="deck" x="640" y="350" width="200" height="112" />
-  <rect class="deck-boards" x="640" y="350" width="200" height="112" />
-  <rect class="pool" x="668" y="374" width="128" height="48" rx="3" />
 
   <!-- Route -->
   <path class="route-ghost" d={routeD}></path>
   <path class="route-done" d={routeD}></path>
 
   <!-- Labels and markers live in screen-pixel space (scaled by JS) so they stay legible at any zoom -->
-  <g class="px" data-at="100,104" data-overview>
+  <g class="px" data-at="400,150" data-overview>
     <text class="lbl lbl-strong" y="0">TERRENO</text>
     <text class="lbl" y="19">3.058,71 m²</text>
   </g>
-  <g class="px" data-at={`${house.x + house.w / 2},${house.y - 14}`} data-overview>
-    <text class="lbl lbl-strong" text-anchor="middle" y="0">CASA</text>
-    <text class="lbl" text-anchor="middle" y="-19">151,94 m²</text>
+  <g class="px" data-at={`${house.x + house.w + 16},${house.y + 110}`} data-overview>
+    <text class="lbl lbl-strong" y="0">CASA</text>
+    <text class="lbl" y="19">151,94 m²</text>
   </g>
-  <g class="px" data-at="560,626" data-overview>
+  <g class="px" data-at="480,626" data-overview>
     <text class="lbl lbl-dim">CALLE MENDOZA</text>
   </g>
-  <g class="px wide-only" data-at="112,490" data-overview>
-    <text class="lbl lbl-dim">Cochera</text>
-  </g>
+
+  <!-- Rooms from the sketch that are not tour stops; they appear only when the camera is close -->
+  <g class="px room-lbl" data-at="213,289"><text class="lbl lbl-dim" text-anchor="middle">DORMITORIO</text></g>
+  <g class="px room-lbl wide-only" data-at="185,360"><text class="lbl lbl-dim" text-anchor="middle">BAÑO</text></g>
 
   {zones.map((z, i) => (
     <g class="px zone" data-zone={i + 1} data-at={route[z.wp].join(',')}>
@@ -129,7 +122,7 @@ const data = JSON.stringify({ route, cameras, house: HOUSE_CENTER });
   let aspect = 1.5;
   type State = { cx: number; cy: number; w: number; d: number };
   const camFor = (i: number): State => {
-    if (i === 0) return { cx: 500, cy: 265, w: Math.max(1060, 720 * aspect), d: 0 };
+    if (i === 0) return { cx: 490, cy: 280, w: Math.max(1000, 700 * aspect), d: 0 };
     const c = plan.cameras[i - 1];
     return { ...c, d: cum[zoneWp[i - 1]] };
   };
@@ -154,6 +147,7 @@ const data = JSON.stringify({ route, cameras, house: HOUSE_CENTER });
       g.setAttribute('transform', `translate(${x} ${y}) scale(${s})`);
       if (g.classList.contains('zone')) g.style.setProperty('--near', near > 0.6 ? '1' : '0');
     }
+    svg.style.setProperty('--near-all', near > 0.6 ? '1' : '0');
     const p = done.getPointAtLength(Math.min(Math.max(cur.d, 0), total));
     walker.setAttribute('transform', `translate(${p.x} ${p.y}) scale(${k})`);
     done.style.strokeDashoffset = `${total - cur.d}`;

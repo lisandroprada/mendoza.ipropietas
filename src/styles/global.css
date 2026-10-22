@@ -114,6 +114,8 @@ h1 {
 .lot-fill { fill: #fff; fill-opacity: 0.035; }
 .lot-line { fill: none; stroke: #fff; stroke-width: 2.5; stroke-linejoin: miter; vector-effect: non-scaling-stroke; }
 .gate { stroke: var(--sky-soft); stroke-width: 2; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; }
+.wall { fill: none; stroke: #fff; stroke-opacity: 0.6; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.room-lbl { opacity: var(--near-all, 0); transition: opacity 0.4s; }
 .trees circle { fill: none; stroke: var(--sky); stroke-opacity: 0.6; stroke-width: 1.25; stroke-dasharray: 3 4; vector-effect: non-scaling-stroke; }
 .trees .tree-dot { fill: var(--sky); stroke: none; }
 .carport { fill: none; stroke: var(--sky-soft); stroke-opacity: 0.6; stroke-width: 1.25; stroke-dasharray: 6 5; vector-effect: non-scaling-stroke; }
