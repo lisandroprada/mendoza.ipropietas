@@ -1,0 +1,240 @@
+/* Propietas Inmobiliaria brand manual: Pantone 2746 C / 298 C. Montserrat stands in for Gotham. */
+:root {
+  --indigo: #2e3192;
+  --indigo-ink: #14165c;
+  --sky: #29aae2;
+  --sky-soft: #bfe5f8;
+  --paper: #edf2fa;
+  --ink: #151743;
+  --ink-2: #3d4186;
+  --rule: rgb(46 49 146 / 0.18);
+  --focus: var(--sky);
+  --gutter: clamp(20px, 5vw, 64px);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --font: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scrollbar-color: var(--indigo) var(--paper); }
+body {
+  margin: 0;
+  background: var(--indigo);
+  color: #fff;
+  font-family: var(--font);
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 { margin: 0; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: 1px; }
+::selection { background: var(--sky); color: var(--indigo-ink); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.paper :focus-visible, .foot :focus-visible { --focus: var(--indigo); }
+
+.wrap { width: 100%; max-width: 1180px; margin-inline: auto; padding-inline: var(--gutter); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 24px; border-radius: 2px;
+  font: 700 1rem/1.2 var(--font); text-decoration: none;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s var(--ease);
+}
+.btn svg { width: 22px; height: 22px; flex: none; }
+.btn-light { background: #fff; color: var(--indigo); }
+.btn-light:hover { background: var(--sky-soft); }
+.btn-ink { background: var(--indigo); color: #fff; }
+.btn-ink:hover { background: var(--indigo-ink); }
+.btn:active { transform: translateY(1px); }
+
+/* ---------- Tour (the plan) ---------- */
+.tour { display: grid; grid-template-columns: minmax(0, 58fr) minmax(0, 42fr); background: var(--indigo); }
+.stage {
+  position: sticky; top: 0; height: 100svh; overflow: hidden;
+  grid-column: 1; grid-row: 1;
+  background: var(--indigo);
+}
+.stage-logo { position: absolute; z-index: 2; top: 28px; left: var(--gutter); width: clamp(120px, 11vw, 160px); }
+/* Title block of the sheet: the disclosure lives inside the drawing. */
+.stage-note {
+  position: absolute; z-index: 2; right: 20px; bottom: 20px; margin: 0;
+  display: grid; gap: 2px; padding: 10px 14px;
+  background: var(--indigo); border: 1px solid rgb(255 255 255 / 0.5);
+  font-size: 0.75rem; line-height: 1.35; color: var(--sky-soft);
+}
+.stage-note strong { color: #fff; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.75rem; }
+.plan { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+.steps { grid-column: 2; grid-row: 1; padding: 0 var(--gutter) 0 clamp(8px, 2vw, 32px); }
+.step {
+  min-height: 100svh; display: flex; flex-direction: column; justify-content: center;
+  gap: 18px; padding-block: 12svh; max-width: 36rem;
+}
+.step-intro { gap: 22px; }
+
+h1 {
+  font-weight: 800; font-size: clamp(2.6rem, 5.4vw, 5rem); line-height: 0.98; letter-spacing: -0.03em;
+}
+.lede { font-size: clamp(1.1rem, 1.5vw, 1.3rem); line-height: 1.45; max-width: 26ch; color: rgb(255 255 255 / 0.92); }
+.price { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.price span { font-weight: 800; font-size: clamp(1.8rem, 3vw, 2.4rem); letter-spacing: -0.02em; }
+.price small { font-weight: 600; font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sky-soft); }
+.hint { font-size: 0.9rem; color: var(--sky-soft); max-width: 34ch; }
+
+.step h2 {
+  display: flex; align-items: center; gap: 14px;
+  font-weight: 800; font-size: clamp(1.6rem, 2.6vw, 2.2rem); line-height: 1.1; letter-spacing: -0.02em;
+}
+.step h2 .n {
+  display: inline-grid; place-items: center; flex: none;
+  width: 1.9rem; height: 1.9rem; border-radius: 50%;
+  border: 1.5px solid var(--sky); color: var(--sky-soft);
+  font-size: 0.85rem; font-weight: 700; letter-spacing: 0;
+}
+.step p { max-width: 34ch; color: rgb(255 255 255 / 0.9); }
+
+.plate { margin: 0; }
+.plate img {
+  width: auto; max-width: 100%; height: auto; max-height: min(56svh, 540px);
+  outline: 1px solid rgb(255 255 255 / 0.55); outline-offset: 7px;
+  margin: 8px;
+}
+.js .step:not(.is-active) .plate { opacity: 0.78; }
+.plate { transition: opacity 0.7s var(--ease); }
+
+/* ---------- Plan drawing ---------- */
+.grid-line { stroke: var(--sky); stroke-opacity: 0.14; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.hatch-line { stroke: #fff; stroke-opacity: 0.14; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.street { fill: #fff; fill-opacity: 0.06; }
+.centerline { stroke: #fff; stroke-opacity: 0.4; stroke-width: 1.5; stroke-dasharray: 14 12; vector-effect: non-scaling-stroke; }
+.lot-fill { fill: #fff; fill-opacity: 0.035; }
+.lot-line { fill: none; stroke: #fff; stroke-width: 2.5; stroke-linejoin: miter; vector-effect: non-scaling-stroke; }
+.gate { stroke: var(--sky-soft); stroke-width: 2; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; }
+.trees circle { fill: none; stroke: var(--sky); stroke-opacity: 0.6; stroke-width: 1.25; stroke-dasharray: 3 4; vector-effect: non-scaling-stroke; }
+.trees .tree-dot { fill: var(--sky); stroke: none; }
+.carport { fill: none; stroke: var(--sky-soft); stroke-opacity: 0.6; stroke-width: 1.25; stroke-dasharray: 6 5; vector-effect: non-scaling-stroke; }
+.house-fill { fill: var(--sky); fill-opacity: 0.16; }
+.house-hatch { fill: url(#hatch); }
+.house-line { fill: none; stroke: #fff; stroke-width: 3; vector-effect: non-scaling-stroke; }
+.gallery { fill: none; stroke: var(--sky-soft); stroke-width: 1.5; stroke-dasharray: 6 4; vector-effect: non-scaling-stroke; }
+.arches { fill: none; stroke: var(--sky-soft); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.deck { fill: #fff; fill-opacity: 0.07; stroke: #fff; stroke-opacity: 0.7; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.deck-boards { fill: url(#boards); }
+.pool { fill: var(--sky); fill-opacity: 0.55; stroke: #fff; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.route-ghost { fill: none; stroke: #fff; stroke-opacity: 0.4; stroke-width: 1.75; stroke-dasharray: 2 7; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.route-done { fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.walker circle { fill: #fff; stroke: var(--indigo); stroke-width: 3px; }
+
+.lbl { font: 700 12px/1 var(--font); letter-spacing: 0.1em; fill: #fff; paint-order: stroke; stroke: var(--indigo); stroke-width: 4px; stroke-linejoin: round; }
+.lbl-strong { font-size: 13px; }
+.lbl-dim { fill: var(--sky-soft); font-weight: 600; }
+.stage[data-step]:not([data-step="0"]) [data-overview] { opacity: 0; }
+[data-overview] { transition: opacity 0.5s var(--ease); }
+
+.zone-dot { fill: var(--indigo); stroke: var(--sky); stroke-width: 2px; transition: fill 0.4s, stroke 0.4s; }
+.zone-n { font: 800 12px/1 var(--font); fill: #fff; transition: fill 0.4s, opacity 0.3s; opacity: var(--near, 1); }
+.zone-name {
+  font: 800 15px/1 var(--font); fill: #fff; paint-order: stroke; stroke: var(--indigo); stroke-width: 5px; stroke-linejoin: round;
+  opacity: 0; transition: opacity 0.4s;
+}
+.zone.is-visited .zone-dot { fill: var(--sky); stroke: var(--sky); }
+.zone.is-visited .zone-n { fill: var(--indigo-ink); }
+.zone.is-active .zone-dot { fill: #fff; stroke: #fff; }
+.zone.is-active .zone-n { fill: var(--indigo); }
+.zone.is-active .zone-name { opacity: 1; }
+
+/* ---------- Paper sections ---------- */
+.paper { background: var(--paper); color: var(--ink); padding-block: clamp(72px, 10vw, 132px); }
+.paper + .paper { padding-top: 0; }
+.paper .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.paper h2 { font-weight: 800; font-size: clamp(1.9rem, 3.6vw, 3.1rem); line-height: 1.05; letter-spacing: -0.025em; color: var(--indigo); }
+.intro { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+.intro p { max-width: 32ch; color: var(--ink-2); }
+
+/* Facts as the sheet's title block: ruled cells, drafting labels. */
+.facts { margin: 0; border: 1.5px solid var(--indigo); }
+.row { display: grid; grid-template-columns: minmax(0, 10rem) minmax(0, 1fr); border-bottom: 1px solid var(--rule); }
+.row:last-child { border-bottom: 0; }
+.row dt {
+  padding: 13px 16px; background: rgb(46 49 146 / 0.06); border-right: 1px solid var(--rule);
+  color: var(--ink-2); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.5;
+}
+.row dd { margin: 0; padding: 11px 16px; font-weight: 600; }
+.row-price dd { font-weight: 800; font-size: clamp(1.2rem, 5vw, 1.5rem); color: var(--indigo); letter-spacing: -0.01em; white-space: nowrap; }
+
+.share { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: clamp(20px, 4vw, 48px); align-items: center; margin: clamp(40px, 6vw, 72px) 0 0; }
+.share-plan { width: 100%; height: auto; display: block; }
+.share-lot { fill: rgb(46 49 146 / 0.05); stroke: var(--indigo); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.share-house { fill: var(--indigo); }
+.share figcaption { max-width: 52ch; color: var(--ink-2); }
+.share strong { color: var(--ink); }
+
+.map { border: 1.5px solid var(--indigo); }
+.sheet-title { margin: 0; padding: 9px 14px; background: var(--indigo); color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.map iframe { display: block; width: 100%; height: clamp(300px, 36vw, 440px); border: 0; background: #dfe7f4; }
+
+.agency-logo { width: clamp(180px, 22vw, 260px); }
+.agency-text { display: flex; flex-direction: column; gap: 20px; }
+.agency-text p { max-width: 52ch; color: var(--ink-2); }
+.agent { color: var(--ink) !important; }
+.contact { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 6px; }
+.contact a { font-weight: 600; color: var(--indigo); }
+
+/* ---------- Closing band ---------- */
+.close { position: relative; overflow: hidden; background: var(--indigo); padding-block: clamp(72px, 11vw, 140px); }
+.close .mark { position: absolute; right: -4vw; top: 50%; width: min(46vw, 520px); transform: translateY(-50%); opacity: 0.16; pointer-events: none; }
+.close .mark svg { width: 100%; height: auto; display: block; }
+.close-in { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+.close h2 { font-weight: 800; font-size: clamp(2.2rem, 5.4vw, 4.4rem); line-height: 1; letter-spacing: -0.03em; }
+.close p { font-size: 1.2rem; max-width: 30ch; }
+
+.foot { background: var(--indigo-ink); color: var(--sky-soft); padding-block: 32px calc(32px + env(safe-area-inset-bottom)); font-size: 0.8125rem; line-height: 1.6; }
+.foot .wrap { display: grid; gap: 8px; }
+.foot p { max-width: 70ch; }
+
+/* ---------- Floating action ---------- */
+.fab {
+  position: fixed; z-index: 20; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  right: 20px; bottom: calc(20px + env(safe-area-inset-bottom));
+  padding: 14px 20px; border-radius: 2px;
+  background: #fff; color: var(--indigo); font: 700 0.95rem/1.2 var(--font); text-decoration: none;
+  box-shadow: 0 8px 22px rgb(20 22 92 / 0.32), 0 0 0 1px rgb(46 49 146 / 0.2);
+  transition: opacity 0.3s, transform 0.4s var(--ease);
+}
+.fab svg { width: 22px; height: 22px; }
+.fab.is-hidden { opacity: 0; transform: translateY(12px); pointer-events: none; }
+
+/* ---------- Phones ---------- */
+@media (max-width: 899px) {
+  .tour { display: block; }
+  .stage { height: 40svh; min-height: 260px; z-index: 5; box-shadow: 0 1px 0 rgb(255 255 255 / 0.25); }
+  .stage-logo { top: 12px; width: 92px; }
+  .plan { inset: 62px 0 24px 0; width: 100%; height: calc(100% - 86px); }
+  .stage-note { left: var(--gutter); right: auto; bottom: 4px; padding: 0; border: 0; background: none; font-size: 0.6875rem; line-height: 1; }
+  .stage-note strong, .stage-note .wide { display: none; }
+  .wide-only { display: none; }
+  .row { grid-template-columns: minmax(0, 7.2rem) minmax(0, 1fr); }
+  .row dt { padding-inline: 12px; font-size: 0.66rem; }
+  .row dd { padding-inline: 12px; }
+  .share { grid-template-columns: 1fr; }
+  .steps { padding: 0 var(--gutter); }
+  .step { min-height: 52svh; justify-content: flex-start; padding-block: 4svh 4svh; gap: 10px; max-width: none; }
+  .step-intro { min-height: 0; padding-bottom: 8svh; gap: 18px; }
+  .step .plate { order: 3; margin-top: 6px; }
+  .plate img { max-height: 27svh; }
+  .paper .grid { grid-template-columns: 1fr; }
+  .fab { right: 14px; bottom: calc(12px + env(safe-area-inset-bottom)); padding: 12px 16px; font-size: 0.875rem; }
+  .fab svg { width: 20px; height: 20px; }
+  .foot { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+.plate-extra { margin-top: 20px; }
+@media (max-width: 899px) { .plate-extra img { max-height: 20svh; } }

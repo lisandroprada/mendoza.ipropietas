@@ -1,0 +1,27 @@
+---
+import raw from '../assets/logo.svg?raw';
+
+interface Props {
+  tone?: 'color' | 'light';
+  class?: string;
+}
+const { tone = 'color', class: className } = Astro.props;
+
+// Strip the page-sized clip paths and fixed size so CSS controls it; ids would collide when the logo repeats.
+let svg = raw
+  .replace(/<\?xml[^>]*\?>/, '')
+  .replace(/<defs>[\s\S]*?<\/defs>/, '')
+  .replace(/\s*clip-path="url\(#[a-z]\)"/g, '')
+  .replace(/\swidth="\d+"\s+height="\d+"/, ' role="img" aria-label="Propietas Inmobiliaria"');
+
+// Manual values (Pantone 2746 C / 298 C); one-ink white for dark grounds.
+svg = svg.replace(/#2e3092/g, tone === 'light' ? '#ffffff' : '#2e3192');
+svg = svg.replace(/#27aae1/g, tone === 'light' ? '#ffffff' : '#29aae2');
+---
+
+<span class:list={['logo', className]} set:html={svg} />
+
+<style is:global>
+  .logo { display: inline-block; line-height: 0; }
+  .logo svg { display: block; width: 100%; height: auto; }
+</style>

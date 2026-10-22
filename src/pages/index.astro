@@ -1,0 +1,250 @@
+---
+import '@fontsource-variable/montserrat';
+import '../styles/global.css';
+import { Image, getImage } from 'astro:assets';
+import Logo from '../components/Logo.astro';
+import Plan from '../components/Plan.astro';
+import isotipoRaw from '../assets/isotipo.svg?raw';
+import pileta from '../assets/fotos/pileta.jpg';
+import {
+  zones,
+  WHATSAPP_URL,
+  WHATSAPP_DISPLAY,
+  MAPS_QUERY,
+  LOT_M2,
+  BUILT_M2,
+} from '../data';
+
+const fmt = (n: number) =>
+  new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
+const share = ((BUILT_M2 / LOT_M2) * 100).toFixed(2);
+const shareRounded = Math.round((BUILT_M2 / LOT_M2) * 100);
+// House footprint drawn at its true share of the lot's area, in a 298 x 182 lot.
+const houseArea = (BUILT_M2 / LOT_M2) * 298 * 182;
+const houseH = Math.sqrt(houseArea / 1.58);
+const houseW = houseH * 1.58;
+
+const title = 'Mendoza 1042, Rawson · Casa en venta | Propietas Inmobiliaria';
+const description =
+  'Casa en venta en Rawson, Chubut: 5 ambientes, 2 dormitorios, 3.058,71 m² de terreno, cochera, parrilla y pileta. USD 250.000.';
+const og = await getImage({ src: pileta, width: 1200, format: 'jpg' });
+const ogUrl = new URL(og.src, Astro.site).href;
+
+const isotipo = isotipoRaw
+  .replace(/<\?xml[^>]*\?>/, '')
+  .replace(/\swidth="\d+"\s+height="\d+"/, ' aria-hidden="true"')
+  .replace(/#2e3092|#27aae1/g, '#29aae2');
+
+const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAPS_QUERY)}`;
+const mapsEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(MAPS_QUERY)}&z=15&hl=es&output=embed`;
+
+const facts: [string, string][] = [
+  ['Dirección', 'Mendoza 1042, barrio Rawson, Rawson, Chubut'],
+  ['Precio', 'USD 250.000'],
+  ['Terreno', `${fmt(LOT_M2)} m²`],
+  ['Superficie cubierta', `${fmt(BUILT_M2)} m²`],
+  ['Ambientes', '5'],
+  ['Dormitorios', '2'],
+  ['Baños', '1'],
+  ['Antigüedad', '40 años'],
+  ['Estado general', 'Muy bueno'],
+  ['Cochera', 'Para 1 vehículo'],
+  ['Parrilla', 'Sí'],
+  ['Pileta', 'Sí'],
+];
+---
+
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#2e3192" />
+    <link rel="canonical" href={Astro.site?.href} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    <main>
+      <section class="tour" aria-label="Recorrido por la propiedad">
+        <div class="stage" data-stage>
+          <Logo tone="light" class="stage-logo" />
+          <Plan />
+          <p class="stage-note"><strong>Mendoza 1042</strong><span>Esquema ilustrativo, sin escala.</span><span class="wide">Ubicaciones aproximadas.</span></p>
+        </div>
+
+        <div class="steps">
+          <article class="step step-intro" data-step="0">
+            <h1>Mendoza 1042</h1>
+            <p class="lede">Casa en Rawson con {fmt(LOT_M2).replace(',00', '')} m² de terreno, pileta y parrilla.</p>
+            <p class="price"><span>USD 250.000</span> <small>en venta</small></p>
+            <a class="btn btn-light" href={WHATSAPP_URL} data-hero-cta>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 4v-4A2.5 2.5 0 0 1 4 13.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.5 8.5h7M8.5 11.5h4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Consultar por WhatsApp
+            </a>
+            <p class="hint">
+              Seguí bajando y recorré la casa desde el portón hasta la pileta.
+            </p>
+          </article>
+
+          {zones.map((z, i) => (
+            <article class="step" data-step={i + 1}>
+              <figure class="plate">
+                <Image
+                  src={z.photo}
+                  alt={z.alt}
+                  widths={[480, 760, 1100]}
+                  sizes="(min-width: 900px) 40vw, 92vw"
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                />
+              </figure>
+              {z.extra && (
+                <figure class="plate plate-extra">
+                  {z.extra.photo.width < 600 ? (
+                    <Image src={z.extra.photo} alt={z.extra.alt} width={z.extra.photo.width} loading="lazy" />
+                  ) : (
+                    <Image
+                      src={z.extra.photo}
+                      alt={z.extra.alt}
+                      widths={[480, 760, 1100]}
+                      sizes="(min-width: 900px) 40vw, 92vw"
+                      loading="lazy"
+                    />
+                  )}
+                </figure>
+              )}
+              <h2><span class="n">{i + 1}</span>{z.name}</h2>
+              <p>{z.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="paper ficha" id="ficha">
+        <div class="wrap grid">
+          <div class="intro">
+            <h2>Los datos, sin vueltas.</h2>
+            <p>
+              Casa para vivienda en barrio Rawson, de 40 años y en muy buen estado general. Tiene
+              cochera para un vehículo, parrilla y pileta.
+            </p>
+          </div>
+          <dl class="facts">
+            {facts.map(([k, v]) => (
+              <div class:list={['row', k === 'Precio' && 'row-price']}>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <div class="wrap">
+          <figure class="share">
+            <svg class="share-plan" viewBox="0 0 300 184" role="img" aria-label={`La superficie cubierta es el ${shareRounded} por ciento del terreno`}>
+              <rect class="share-lot" x="1" y="1" width="298" height="182" />
+              <rect class="share-house" x="106" y="70" width={houseW} height={houseH} />
+            </svg>
+            <figcaption>
+              <strong>{fmt(BUILT_M2)} m²</strong> cubiertos sobre <strong>{fmt(LOT_M2)} m²</strong> de
+              terreno. La casa ocupa el {shareRounded} % del lote; el resto es terreno libre.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="paper donde" id="donde">
+        <div class="wrap grid">
+          <div class="intro">
+            <h2>Dónde queda.</h2>
+            <p>
+              Mendoza 1042, barrio Rawson, Rawson, Chubut.
+            </p>
+            <a class="btn btn-ink" href={mapsLink} target="_blank" rel="noopener">Cómo llegar</a>
+          </div>
+          <div class="map">
+            <p class="sheet-title">Plano de ubicación · Mendoza 1042</p>
+            <iframe
+              title="Mapa de Mendoza 1042, Rawson, Chubut"
+              src={mapsEmbed}
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section class="paper agencia" id="agencia">
+        <div class="wrap grid">
+          <div class="intro">
+            <Logo class="agency-logo" />
+          </div>
+          <div class="agency-text">
+            <h2>Una inmobiliaria de Rawson, desde 1995.</h2>
+            <p>
+              Propietas es una empresa local de origen familiar, con más de 20 años de trayectoria
+              en el mercado inmobiliario de Rawson, Chubut.
+            </p>
+            <p class="agent">
+              <strong>Lisandro Emanuel Prada Toledo</strong>
+            </p>
+            <ul class="contact">
+              <li><a href={WHATSAPP_URL}>WhatsApp {WHATSAPP_DISPLAY}</a></li>
+              <li><a href="mailto:info@ipropietas.com.ar">info@ipropietas.com.ar</a></li>
+              <li>Gregorio Mayo 106, Rawson, Chubut</li>
+              <li><a href="https://www.ipropietas.com.ar" target="_blank" rel="noopener">www.ipropietas.com.ar</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="close" aria-labelledby="close-h">
+        <div class="mark" aria-hidden="true" set:html={isotipo} />
+        <div class="wrap close-in">
+          <h2 id="close-h">¿Querés verla?</h2>
+          <p>Escribinos y coordinamos una visita a Mendoza 1042.</p>
+          <a class="btn btn-light" href={WHATSAPP_URL} data-close-cta>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 4v-4A2.5 2.5 0 0 1 4 13.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.5 8.5h7M8.5 11.5h4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Consultar por WhatsApp
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="wrap">
+        <p>Propietas Inmobiliaria · NETRA SRL · Gregorio Mayo 106, Rawson, Chubut</p>
+        <p>
+          Datos según la ficha de la inmobiliaria; superficies y medidas sujetas a verificación
+          documental. El esquema del terreno es ilustrativo: no tiene escala y las ubicaciones son
+          aproximadas.
+        </p>
+      </div>
+    </footer>
+
+    <a class="fab" href={WHATSAPP_URL} data-fab aria-label="Consultar por WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 4v-4A2.5 2.5 0 0 1 4 13.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.5 8.5h7M8.5 11.5h4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span>Consultar por WhatsApp</span>
+    </a>
+
+    <script>
+      // The floating button steps aside while a full-size action is on screen.
+      const fab = document.querySelector<HTMLElement>('[data-fab]')!;
+      const hosts = document.querySelectorAll('[data-hero-cta], [data-close-cta]');
+      const visible = new Set<Element>();
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) e.isIntersecting ? visible.add(e.target) : visible.delete(e.target);
+        fab.classList.toggle('is-hidden', visible.size > 0);
+      });
+      hosts.forEach((h) => io.observe(h));
+    </script>
+  </body>
+</html>

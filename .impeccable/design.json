@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-22T00:00:00Z",
+  "title": "Design System: Mendoza 1042, Propietas Inmobiliaria",
+  "extensions": {
+    "colorMeta": {
+      "indigo": { "role": "primary", "displayName": "Propietas Indigo", "canonical": "#2e3192", "tonalRamp": ["#0b0c33", "#14165c", "#1d206f", "#2e3192", "#5a5db0", "#8688c8", "#b3b4de", "#e1e2f2"] },
+      "sky": { "role": "secondary", "displayName": "Propietas Sky", "canonical": "#29aae2", "tonalRamp": ["#0a3a52", "#0f5a80", "#1782b5", "#29aae2", "#58bde9", "#8dd0f0", "#bfe5f8", "#e6f5fc"] },
+      "sky-soft": { "role": "secondary", "displayName": "Sky Wash", "canonical": "#bfe5f8", "tonalRamp": ["#0a3a52", "#1782b5", "#29aae2", "#7fcbef", "#bfe5f8", "#d3edfa", "#e6f5fc", "#f4fafe"] },
+      "paper": { "role": "neutral", "displayName": "Blueprint Paper", "canonical": "#edf2fa", "tonalRamp": ["#151743", "#3d4186", "#7b82b8", "#aab3d6", "#cdd6ea", "#dfe7f4", "#edf2fa", "#f7f9fd"] },
+      "indigo-ink": { "role": "neutral", "displayName": "Deep Indigo Ink", "canonical": "#14165c", "tonalRamp": ["#05061f", "#0b0c33", "#14165c", "#1d206f", "#2e3192", "#4d50a8", "#7a7cc2", "#b3b4de"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#151743", "tonalRamp": ["#05061a", "#0b0c2e", "#151743", "#25286a", "#3d4186", "#6a6ea6", "#9a9dc6", "#d0d1e6"] },
+      "ink-2": { "role": "neutral", "displayName": "Ink Secondary", "canonical": "#3d4186", "tonalRamp": ["#151743", "#25286a", "#3d4186", "#5a5ea0", "#7b7fb6", "#9ea1cb", "#c2c4df", "#e4e5f1"] },
+      "white": { "role": "neutral", "displayName": "Plan White", "canonical": "#ffffff", "tonalRamp": ["#d9d9d9", "#e3e3e3", "#ececec", "#f2f2f2", "#f6f6f6", "#fafafa", "#fdfdfd", "#ffffff"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The h1 'Mendoza 1042' only." },
+      "headline": { "displayName": "Headline", "purpose": "Paper-section and closing h2." },
+      "title": { "displayName": "Title", "purpose": "Tour step headings with a numbered ring." },
+      "body": { "displayName": "Body", "purpose": "Paragraphs; tabular numerals on." },
+      "label": { "displayName": "Label", "purpose": "Drafting-style fact labels and map sheet title." }
+    },
+    "shadows": [
+      { "name": "fab-float", "value": "0 8px 22px rgb(20 22 92 / 0.32), 0 0 0 1px rgb(46 49 146 / 0.2)", "purpose": "Only shadow in the system: the floating WhatsApp button over changing grounds." }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Button press, FAB reveal, plate opacity, overview label fade." },
+      { "name": "state-fast", "value": "0.2s", "purpose": "Button colour transitions." },
+      { "name": "plan-state", "value": "0.4s to 0.7s", "purpose": "Zone marker fill, zone name, plate opacity. Reduced motion collapses all durations to 0.01ms." }
+    ],
+    "breakpoints": [
+      { "name": "tour-stack", "value": "max-width 899px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Light Button",
+      "kind": "button",
+      "refersTo": "button-light",
+      "description": "Primary WhatsApp action on indigo grounds.",
+      "html": "<a class=\"ds-btn-light\" href=\"#\">Consultar por WhatsApp</a>",
+      "css": ".ds-btn-light{display:inline-flex;align-items:center;gap:12px;padding:16px 24px;border-radius:2px;background:#fff;color:#2e3192;font:700 1rem/1.2 'Montserrat Variable',system-ui,sans-serif;text-decoration:none;transition:background-color .2s,transform .2s}.ds-btn-light:hover{background:#bfe5f8}.ds-btn-light:active{transform:translateY(1px)}.ds-btn-light:focus-visible{outline:3px solid #29aae2;outline-offset:3px}"
+    },
+    {
+      "name": "Ink Button",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "Primary action on paper grounds.",
+      "html": "<a class=\"ds-btn-ink\" href=\"#\">Cómo llegar</a>",
+      "css": ".ds-btn-ink{display:inline-flex;align-items:center;gap:12px;padding:16px 24px;border-radius:2px;background:#2e3192;color:#fff;font:700 1rem/1.2 'Montserrat Variable',system-ui,sans-serif;text-decoration:none;transition:background-color .2s,transform .2s}.ds-btn-ink:hover{background:#14165c}.ds-btn-ink:active{transform:translateY(1px)}.ds-btn-ink:focus-visible{outline:3px solid #2e3192;outline-offset:3px}"
+    },
+    {
+      "name": "Facts Table",
+      "kind": "custom",
+      "refersTo": "facts-label",
+      "description": "Ruled title-block definition list on paper.",
+      "html": "<dl class=\"ds-facts\"><div class=\"ds-row\"><dt>Terreno</dt><dd>3.058,71 m²</dd></div><div class=\"ds-row\"><dt>Ambientes</dt><dd>5</dd></div></dl>",
+      "css": ".ds-facts{margin:0;border:1.5px solid #2e3192;background:#edf2fa;color:#151743;font-family:'Montserrat Variable',system-ui,sans-serif}.ds-row{display:grid;grid-template-columns:10rem 1fr;border-bottom:1px solid rgb(46 49 146/.18)}.ds-row:last-child{border-bottom:0}.ds-row dt{padding:13px 16px;background:rgb(46 49 146/.06);border-right:1px solid rgb(46 49 146/.18);color:#3d4186;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1.5}.ds-row dd{margin:0;padding:11px 16px;font-weight:600;font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "Map Sheet",
+      "kind": "custom",
+      "refersTo": "sheet-title",
+      "description": "Indigo sheet-title bar over a framed map.",
+      "html": "<div class=\"ds-map\"><p class=\"ds-sheet-title\">Plano de ubicación · Mendoza 1042</p><div class=\"ds-map-body\"></div></div>",
+      "css": ".ds-map{border:1.5px solid #2e3192}.ds-sheet-title{margin:0;padding:9px 14px;background:#2e3192;color:#fff;font:700 .72rem 'Montserrat Variable',system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase}.ds-map-body{height:120px;background:#dfe7f4}"
+    },
+    {
+      "name": "Step Heading",
+      "kind": "custom",
+      "refersTo": "zone-marker",
+      "description": "Tour step title with numbered ring, on indigo.",
+      "html": "<div class=\"ds-step\"><h2><span class=\"ds-n\">1</span>Galería</h2></div>",
+      "css": ".ds-step{background:#2e3192;color:#fff;padding:24px;font-family:'Montserrat Variable',system-ui,sans-serif}.ds-step h2{margin:0;display:flex;align-items:center;gap:14px;font-weight:800;font-size:1.8rem;line-height:1.1;letter-spacing:-.02em}.ds-n{display:inline-grid;place-items:center;width:1.9rem;height:1.9rem;border-radius:50%;border:1.5px solid #29aae2;color:#bfe5f8;font-size:.85rem;font-weight:700;letter-spacing:0}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Cianotipo Site Plan",
+    "overview": "The page is a blueprint of one lot. Propietas indigo is the ground of the whole tour; white and sky-blue linework, hatching, a dotted route and a walking dot describe the lot, the house and the pool, while a scroll-linked camera moves from the lot to each room. Real photographs are the only warm colour and sit on the blue as outlined plates. Below the tour the ground turns to a blue-tinted paper with indigo ink.",
+    "keyCharacteristics": [
+      "Indigo ground for the tour and closing band; blue-tinted paper (#edf2fa) for facts, map and agency.",
+      "Linework in white and sky; no warm colour except photographs.",
+      "Heavy geometric sans headings (800) over regular-weight text, tabular numerals.",
+      "Flat, square-cornered (2px), no shadows except one on the floating action button.",
+      "The plan SVG uses px-space labels scaled by a JS camera so type stays legible at any zoom."
+    ],
+    "rules": [
+      { "name": "The Brand Blue Only Rule", "body": "Hues are indigo and sky; any new tint is derived from them. Warmth comes from photographs alone.", "section": "colors" },
+      { "name": "The Ground Switch Rule", "body": "Indigo is the ground while the plan is being walked; paper is the ground once the visitor is reading facts. Do not mix grounds inside a section.", "section": "colors" },
+      { "name": "The Halo Label Rule", "body": "Text drawn on the plan carries an indigo stroke halo so it reads over linework.", "section": "typography" },
+      { "name": "The Flat Sheet Rule", "body": "Surfaces are flat; separation is by outline, ruled line or ground change.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use only #2e3192 and #29aae2 as hues, with white, sky-soft and deep indigo as supports.",
+      "Do keep headings at weight 800 with negative tracking, body at 400, numerals tabular.",
+      "Do keep the 2px corner and flat surfaces; frame with 1 to 1.5px outlines.",
+      "Do keep the illustrative-drawing disclosure visible in the stage and the footer.",
+      "Do label drawn text in px space with an indigo halo.",
+      "Do swap the focus ring to indigo on paper and footer grounds.",
+      "Do keep WhatsApp one tap away (hero, closing band, FAB)."
+    ],
+    "donts": [
+      "Don't introduce warm colour outside photographs.",
+      "Don't use rounded cards, icon-card amenity grids, or a hero photo; the plan is the hero.",
+      "Don't add shadows to surfaces other than the floating button.",
+      "Don't present the drawing's positions or scale as measured.",
+      "Don't publish the seller's name or a matrícula line without explicit user approval (the matrícula line is deliberately not shipped).",
+      "Don't claim Gotham; Montserrat is a stand-in until a web license is confirmed."
+    ]
+  }
+}
