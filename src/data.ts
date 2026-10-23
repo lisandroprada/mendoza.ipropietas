@@ -138,7 +138,7 @@ export const zones: Zone[] = [
 // Camera per step. Step 0 (the whole lot) is computed from the stage aspect.
 export const cameras = zones.map((z) => {
   const [x, y] = route[z.wp];
-  if (z.id === 'pileta') return { cx: 261, cy: 156, w: 300 };
+  if (z.id === 'pileta') return { cx: 261, cy: 146, w: 300 };
   return {
     cx: HOUSE_CENTER[0] + (x - HOUSE_CENTER[0]) * 0.4 + 10,
     cy: HOUSE_CENTER[1] + (y - HOUSE_CENTER[1]) * 0.4 + 4,

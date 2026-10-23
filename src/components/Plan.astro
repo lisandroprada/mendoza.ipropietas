@@ -131,7 +131,9 @@ const data = JSON.stringify({ route, cameras, house: HOUSE_CENTER });
   const camFor = (i: number): State => {
     if (i === 0) return { cx: 500, cy: 280, w: Math.max(1000, 700 * aspect), d: 0 };
     const c = plan.cameras[i - 1];
-    return { ...c, d: cum[zoneWp[i - 1]] };
+    // Keep the whole house (or pool area) in frame on short, wide stages such as phones.
+    const minH = i === plan.cameras.length ? 230 : 290;
+    return { ...c, w: Math.max(c.w, minH * aspect), d: cum[zoneWp[i - 1]] };
   };
   let step = 0;
   let cur: State = camFor(0);
@@ -195,7 +197,7 @@ const data = JSON.stringify({ route, cameras, house: HOUSE_CENTER });
   new ResizeObserver(() => {
     const r = box();
     if (r.width && r.height) aspect = r.width / r.height;
-    if (step === 0) cur = camFor(0);
+    cur = camFor(step);
     render();
   }).observe(svg);
 

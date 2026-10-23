@@ -104,7 +104,7 @@
       "Don't use rounded cards, icon-card amenity grids, or a hero photo; the plan is the hero.",
       "Don't add shadows to surfaces other than the floating button.",
       "Don't present the drawing's positions or scale as measured.",
-      "Don't publish the seller's name or a matrícula line without explicit user approval (the matrícula line is deliberately not shipped).",
+      "Don't publish the seller's name, on the page or in the repo. The agent's matrícula (N° 117, COCICH) is published, user-approved.",
       "Don't claim Gotham; Montserrat is a stand-in until a web license is confirmed."
     ]
   }

@@ -111,7 +111,7 @@ A two-hue brand palette (indigo and sky) with white linework, pushed to a paper 
 
 ### Primary
 - **Propietas Indigo** (#2e3192, Pantone 2746 C): tour and closing ground, primary button on paper, headings on paper, facts frame and sheet titles.
-- **Propietas Sky** (#29aae2, Pantone 298 C): visited zone markers, tree dots, grid lines, pool fill, focus ring on indigo, selection.
+- **Propietas Sky** (#29aae2, Pantone 298 C): visited zone markers, grid lines, pool fill, focus ring on indigo, selection.
 
 ### Secondary
 - **Sky Wash** (#bfe5f8): secondary text on indigo, dashed gate/gallery/arch lines, light-button hover.
@@ -178,7 +178,7 @@ A definition list framed by 1.5px indigo; rows split into a tinted label cell (u
 Indigo sheet-title bar over an iframe in a 1.5px indigo frame.
 
 ### Plan stage (signature)
-Sticky SVG: grid, street, lot outline, trees, carport, house with hatch, gallery arches, deck, pool, ghost and walked route. Zone markers: indigo disc with sky ring at rest, sky when visited, white when active (name shown). Overview labels fade out after step 0. A title-block note ("Esquema ilustrativo, sin escala") sits in the stage as the disclosure that the drawing is illustrative with invented positions.
+Sticky SVG redrawn from the owner's hand sketch: grid, street, lot outline with the cut corner, semi-covered carport left of the house, house with hatch and room walls (kitchen strip, bedrooms, bathroom, living), gallery arches along the yard side, pool area with deck, ghost and walked route. Room labels that are not tour stops (dormitorio, baño, cochera) appear only when the camera is close. Zone markers: indigo disc with sky ring at rest, sky when visited, white when active (name shown). Overview labels fade out after step 0. A title-block note ("Esquema ilustrativo, sin escala") sits in the stage as the disclosure that the drawing is illustrative and positions are approximate. Eight tour stops; the camera frames the whole house (410 units wide) for interior steps and the pool area for the last.
 
 ### Share diagram
 Small paper-side plan showing the house as an indigo rectangle at true area share inside an outlined lot.
@@ -199,5 +199,5 @@ Small paper-side plan showing the house as an indigo rectangle at true area shar
 - **Don't** use rounded cards, icon-card amenity grids, or a hero photo; the plan is the hero.
 - **Don't** add shadows to surfaces other than the floating button.
 - **Don't** present the drawing's positions or scale as measured.
-- **Don't** publish the seller's name or a matrícula line without explicit user approval (the matrícula line is deliberately not shipped).
+- **Don't** publish the seller's name, on the page or in the repo. The agent's matrícula (N° 117, COCICH) is published, user-approved.
 - **Don't** claim Gotham; Montserrat is a stand-in until a web license is confirmed.
